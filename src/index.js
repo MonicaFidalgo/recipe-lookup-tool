@@ -25,9 +25,20 @@ function handleDropdown(e) {
 // FUNCTION: renderOneRecipe(recipe)
 function renderOneRecipe(recipe) {
   const li = document.createElement("li");
-  li.class = "card";
-  const p = document.createElement("p");
-  p.innerText = recipe["strMeal"];
+  li.className = "card";
+
+  const img = document.createElement("img");
+  img.className = "thumbnail";
+  img.src = recipe["strMealThumb"];
+
+  const h3 = document.createElement("h3");
+  h3.innerText = recipe["strMeal"];
+
+  const likeButton = document.createElement("button");
+  likeButton.className = "like-btn";
+  likeButton.innerText = "♡";
+
+  li.append(img, h3, likeButton);
   document.querySelector("#card-container").appendChild(li);
 }
 

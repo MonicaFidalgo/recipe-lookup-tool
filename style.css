@@ -1,11 +1,35 @@
 body {
-  background-color: #ece4db;
+  background-color: whitesmoke;
   color: #36454f;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
 }
 
+#card-container {
+  margin: 2rem;
+}
+
 .card {
-  background-color: #d8e2dc;
-  display: flex;
+  font-size: smaller;
+  text-align: center;
+  border: grey solid 0.5px;
+  background-color: white;
+  width: 15rem;
+  height: 22rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+}
+
+.thumbnail {
+  justify-self: center;
+  height: auto;
+  width: 15rem;
+}
+
+.like-btn {
+  border: none;
+  background-color: white;
+  font-size: large;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
 }

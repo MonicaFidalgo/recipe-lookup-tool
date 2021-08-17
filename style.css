@@ -1,0 +1,11 @@
+body {
+  background-color: #ece4db;
+  color: #36454f;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.card {
+  background-color: #d8e2dc;
+  display: flex;
+}

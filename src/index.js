@@ -32,6 +32,7 @@ function renderOneRecipe(recipe) {
   const img = document.createElement("img");
   img.className = "thumbnail";
   img.src = recipe["strMealThumb"];
+  img.alt = `Image of prepared ${recipe["strMeal"]}`;
 
   const h3 = document.createElement("h3");
   h3.innerText = recipe["strMeal"];

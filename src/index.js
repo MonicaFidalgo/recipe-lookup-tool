@@ -39,15 +39,11 @@ function renderOneRecipe(recipe) {
   const likeButton = document.createElement("button");
   likeButton.className = "like-btn";
   likeButton.innerText = "♡";
+  likeButton.addEventListener("click", (e) => handleLike(e));
 
   li.append(img, h3, likeButton);
   document.querySelector("#card-container").appendChild(li);
 }
-
-// Access strMeal and strMealThumb
-// Render the meal name and thumbnail image
-// Add a like button
-// Add an event listener to the like button ("click", (e) => handleLike(e))
 
 //  FUNCTION: handleLike(e)
 // function handleLike(e) {

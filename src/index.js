@@ -40,6 +40,10 @@ function renderOneRecipe(recipe) {
     h3.className = "overflowText";
   }
 
+  const id = document.createElement("span");
+  id.innerText = recipe["idMeal"];
+  id.className = "hidden";
+
   const likeCounter = document.createElement("span");
   likeCounter.innerText = "0 likes";
 
@@ -48,18 +52,32 @@ function renderOneRecipe(recipe) {
   likeButton.innerText = "Like";
   likeButton.addEventListener("click", (e) => handleLike(e));
 
-  li.append(img, h3, likeCounter, likeButton);
+  li.append(img, h3, id, likeCounter, likeButton);
   document.querySelector("#card-container").appendChild(li);
 }
 
 //  FUNCTION: handleLike(e)
 function handleLike(e) {
-  console.log(e);
-  // Figure out which recipe was liked
-  //
-  // if (e.target.innerText === "♡") {
-  //   e.target.innerText = "♥";
-  // } else {
-  //   e.target.innerText = "♡";
-  // }
+  const currentLikes = parseInt(e.target.previousElementSibling.innerText);
+  const id = e.target.previousElementSibling.previousElementSibling.innerText;
+  if (currentLikes === 0) {
+    saveMeal(id);
+  } else {
+    updateLikes(id);
+  }
 }
+
+// function saveMeal(mealID)
+
+// Grab the current number of likes from the DOM
+// Check to see if the likes === 0
+// If so, make a post request to store the ID and like count
+// If not, make a patch request to update the number of likes
+
+// Figure out which recipe was liked
+//
+// if (e.target.innerText === "♡") {
+//   e.target.innerText = "♥";
+// } else {
+//   e.target.innerText = "♡";
+// }

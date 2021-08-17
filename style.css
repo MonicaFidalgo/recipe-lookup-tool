@@ -24,6 +24,10 @@ body {
   font-size: small;
 }
 
+.hidden {
+  display: none;
+}
+
 .thumbnail {
   justify-self: center;
   height: auto;

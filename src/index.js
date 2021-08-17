@@ -46,6 +46,10 @@ function renderOneRecipe(recipe) {
 }
 
 //  FUNCTION: handleLike(e)
-// function handleLike(e) {
-//   // Access DOM element (e.target)
-//   // Change class and innerText to appear "liked"
+function handleLike(e) {
+  if (e.target.innerText === "♡") {
+    e.target.innerText = "♥";
+  } else {
+    e.target.innerText = "♡";
+  }
+}

@@ -28,8 +28,8 @@ body {
 
 .like-btn {
   border: none;
+  color: red;
   background-color: white;
-  font-size: large;
   margin-top: -1rem;
   margin-bottom: 1rem;
 }

@@ -45,6 +45,12 @@ function renderOneRecipe(recipe) {
   id.className = "hidden";
 
   const likeCounter = document.createElement("span");
+  // ** Check Toy Tale to see if there's a shortcut for this process:
+  // Iterate through the database to see if the meal's ID exists
+  // If it doesn't exist in the DB, set likeCounter.innertText to "0 likes"
+  // Else, check how many likes there are
+  // If there's 1 like, set likeCounter.innerText to `${meal["likes"] like`
+  // Else, set likeCounter.innerText to `${meal["likes"] likes`
   likeCounter.innerText = "0 likes";
 
   const likeButton = document.createElement("button");
@@ -100,16 +106,3 @@ function handleLike(e) {
       );
   }
 }
-
-// Grab the current number of likes from the DOM
-// Check to see if the likes === 0
-// If so, make a post request to store the ID and like count
-// If not, make a patch request to update the number of likes
-
-// Figure out which recipe was liked
-//
-// if (e.target.innerText === "♡") {
-//   e.target.innerText = "♥";
-// } else {
-//   e.target.innerText = "♡";
-// }

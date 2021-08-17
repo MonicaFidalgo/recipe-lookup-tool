@@ -15,6 +15,8 @@ function handleDropdown(e) {
   // Get the value of the dropdown selection
   // Make a fetch request to get items from the desired category
   // .then(recipeData) => recipeData["meals"].forEach(renderOneRecipe))
+  document.querySelector("#card-container").innerHTML = "";
+
   const category = e.target.value;
 
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)

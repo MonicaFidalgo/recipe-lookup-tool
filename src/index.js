@@ -58,16 +58,32 @@ function renderOneRecipe(recipe) {
 
 //  FUNCTION: handleLike(e)
 function handleLike(e) {
-  const currentLikes = parseInt(e.target.previousElementSibling.innerText);
+  let currentLikes = parseInt(e.target.previousElementSibling.innerText);
   const id = e.target.previousElementSibling.previousElementSibling.innerText;
+
   if (currentLikes === 0) {
     saveMeal(id);
+    e.target.previousElementSibling.innerText = `${currentLikes + 1} like`;
   } else {
     updateLikes(id);
+    e.target.previousElementSibling.innerText = `${currentLikes + 1} like`;
   }
 }
 
-// function saveMeal(mealID)
+function saveMeal(id) {
+  const newMeal = {
+    id: id,
+    likes: 1,
+  };
+
+  fetch("http://localhost:3000/meals", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newMeal),
+  });
+}
 
 // Grab the current number of likes from the DOM
 // Check to see if the likes === 0

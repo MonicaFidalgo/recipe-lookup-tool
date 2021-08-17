@@ -62,27 +62,43 @@ function handleLike(e) {
   const id = e.target.previousElementSibling.previousElementSibling.innerText;
 
   if (currentLikes === 0) {
-    saveMeal(id);
-    e.target.previousElementSibling.innerText = `${currentLikes + 1} like`;
+    const newMeal = {
+      id: id,
+      likes: 1,
+    };
+
+    fetch("http://localhost:3000/meals", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newMeal),
+    })
+      .then((resp) => resp.json())
+      .then(
+        () =>
+          (e.target.previousElementSibling.innerText = `${
+            currentLikes + 1
+          } like`)
+      );
   } else {
-    updateLikes(id);
-    e.target.previousElementSibling.innerText = `${currentLikes + 1} like`;
+    fetch(`http://localhost:3000/meals/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        likes: currentLikes + 1,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then(
+        () =>
+          (e.target.previousElementSibling.innerText = `${
+            currentLikes + 1
+          } likes`)
+      );
   }
-}
-
-function saveMeal(id) {
-  const newMeal = {
-    id: id,
-    likes: 1,
-  };
-
-  fetch("http://localhost:3000/meals", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newMeal),
-  });
 }
 
 // Grab the current number of likes from the DOM

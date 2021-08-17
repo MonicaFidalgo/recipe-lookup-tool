@@ -36,21 +36,30 @@ function renderOneRecipe(recipe) {
 
   const h3 = document.createElement("h3");
   h3.innerText = recipe["strMeal"];
+  if (h3.innerText.length > 48) {
+    h3.className = "overflowText";
+  }
+
+  const likeCounter = document.createElement("span");
+  likeCounter.innerText = "0 likes";
 
   const likeButton = document.createElement("button");
   likeButton.className = "like-btn";
-  likeButton.innerText = "♡";
+  likeButton.innerText = "Like";
   likeButton.addEventListener("click", (e) => handleLike(e));
 
-  li.append(img, h3, likeButton);
+  li.append(img, h3, likeCounter, likeButton);
   document.querySelector("#card-container").appendChild(li);
 }
 
 //  FUNCTION: handleLike(e)
 function handleLike(e) {
-  if (e.target.innerText === "♡") {
-    e.target.innerText = "♥";
-  } else {
-    e.target.innerText = "♡";
-  }
+  console.log(e);
+  // Figure out which recipe was liked
+  //
+  // if (e.target.innerText === "♡") {
+  //   e.target.innerText = "♥";
+  // } else {
+  //   e.target.innerText = "♡";
+  // }
 }

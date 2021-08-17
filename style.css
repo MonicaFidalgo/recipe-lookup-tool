@@ -1,5 +1,5 @@
 body {
-  background-color: whitesmoke;
+  background-color: white;
   color: #36454f;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
@@ -20,6 +20,10 @@ body {
   margin: 1rem 2rem;
 }
 
+.overflowText {
+  font-size: small;
+}
+
 .thumbnail {
   justify-self: center;
   height: auto;
@@ -27,9 +31,9 @@ body {
 }
 
 .like-btn {
-  border: none;
-  color: red;
+  width: 25%;
+  border-radius: 5%;
   background-color: white;
-  margin-top: -1rem;
-  margin-bottom: 1rem;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
 }

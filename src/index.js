@@ -45,13 +45,11 @@ function renderOneRecipe(recipe) {
   id.className = "hidden";
 
   const likeCounter = document.createElement("span");
-  // ** Check Toy Tale to see if there's a shortcut for this process:
-  // Iterate through the database to see if the meal's ID exists
-  // If it doesn't exist in the DB, set likeCounter.innertText to "0 likes"
-  // Else, check how many likes there are
-  // If there's 1 like, set likeCounter.innerText to `${meal["likes"] like`
-  // Else, set likeCounter.innerText to `${meal["likes"] likes`
-  likeCounter.innerText = "0 likes";
+
+  // Get the current info in db.json and pass it to handleData
+  fetch("http://localhost:3000/meals")
+    .then((resp) => resp.json())
+    .then((data) => handleData(data, id, likeCounter));
 
   const likeButton = document.createElement("button");
   likeButton.className = "like-btn";
@@ -60,6 +58,24 @@ function renderOneRecipe(recipe) {
 
   li.append(img, h3, id, likeCounter, likeButton);
   document.querySelector("#card-container").appendChild(li);
+}
+
+function handleData(data, id, likeCounter) {
+  // Iterate through the data to see if the current item's ID is in there
+  // use .find?
+  const likedMeal = data.find((element) => element["id"] === id.innerText);
+
+  // Based on the value of likedMeal, set the innerText of likeCounter
+  // If it doesn't exist in the DB, set likeCounter.innertText to "0 likes"
+  // Else if there's 1 like, set likeCounter.innerText to `${meal["likes"] like`
+  // Else, set likeCounter.innerText to `${meal["likes"] likes`
+  if (typeof likedMeal === "undefined") {
+    likeCounter.innerText = "0 likes";
+  } else if (likedMeal["likes"] === 1) {
+    likeCounter.innerText = "1 like";
+  } else {
+    likeCounter.innerText = `${likedMeal["likes"]} likes`;
+  }
 }
 
 //  FUNCTION: handleLike(e)

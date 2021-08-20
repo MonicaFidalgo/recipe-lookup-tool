@@ -42,23 +42,19 @@ function renderOneRecipe(recipe) {
 
   fetch("http://localhost:3000/meals")
     .then((resp) => resp.json())
-    .then((currentLikeData) =>
-      setLikeCounter(currentLikeData, id, likeCounter)
-    );
+    .then((meals) => setLikeCounter(meals, id, likeCounter));
 
   const likeButton = document.createElement("button");
   likeButton.className = "like-btn";
   likeButton.innerText = "Like";
-  likeButton.addEventListener("click", (e) => handleLike(e));
+  likeButton.addEventListener("click", handleLike);
 
-  li.append(img, h3, id);
+  li.append(img, h3, id, likeCounter, likeButton);
   document.querySelector("#card-container").appendChild(li);
 }
 
-function setLikeCounter(currentLikeData, id, likeCounter) {
-  const likedMeal = currentLikeData.find(
-    (element) => element["id"] === id.innerText
-  );
+function setLikeCounter(meals, id, likeCounter) {
+  const likedMeal = meals.find((element) => element["id"] === id.innerText);
 
   if (typeof likedMeal === "undefined") {
     likeCounter.innerText = "0 likes";

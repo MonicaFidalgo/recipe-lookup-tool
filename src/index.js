@@ -1,21 +1,52 @@
 document.addEventListener("DOMContentLoaded", initialize);
 
 function initialize(e) {
+  handleDropdown();
   document
     .querySelector("#categories")
     .addEventListener("change", handleDropdown);
+  addFavorites();
 }
 
 function handleDropdown(e) {
+  console.log(e);
   document.querySelector("#card-container").innerHTML = "";
 
-  const category = e.target.value;
+  const category = e !== undefined ? e.target.value : "Breakfast";
 
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((resp) => resp.json())
     .then((recipeData) => {
       recipeData["meals"].forEach(renderOneRecipe);
     });
+}
+
+async function addFavorites() {
+  const likes = document.querySelector("#likes");
+  let likesData = [];
+
+  await fetchFavorites().then((data) => {
+    likesData.push(...data);
+    const markup = likesData
+      .map((meal) => {
+        return `<h1>${meal.likes}</h1>`;
+      })
+      .join("");
+    console.log(markup);
+
+    let likesContent = (likes.innerHTML = markup);
+
+    return likesContent;
+  });
+}
+
+async function fetchFavorites() {
+  const url = "http://localhost:3000/meals/";
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return data;
 }
 
 function renderOneRecipe(recipe) {
@@ -107,4 +138,6 @@ function handleLike(e) {
           } likes`)
       );
   }
+
+  addFavorites();
 }

@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="src/index.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Find a Recipe</h1>
     <div>
-        <label for="categories">Choose a category:</label> 
+      <label for="categories">Choose a category:</label>
 
-        <select name="categories" id="categories">
-            <option disabled selected value> -- select an option -- </option>
-            <option value="Breakfast">Breakfast</option>
-            <option value="Starter">Starters</option>
-            <option value="Chicken">Chicken</option>
-            <option value="Beef">Beef</option>
-            <option value="Pork">Pork</option>
-            <option value="Lamb">Lamb</option>
-            <option value="Goat">Goat</option>
-            <option value="Seafood">Seafood</option>
-            <option value="Pasta">Pasta</option>
-            <option value="Vegetarian">Vegetarian</option>
-            <option value="Vegan">Vegan</option>
-            <option value="Side">Sides</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Miscellaneous">Miscellaneous</option>
-        </select>
+      <select name="categories" id="categories">
+        <option value="Breakfast">Breakfast</option>
+        <option value="Starter">Starters</option>
+        <option value="Chicken">Chicken</option>
+        <option value="Beef">Beef</option>
+        <option value="Pork">Pork</option>
+        <option value="Lamb">Lamb</option>
+        <option value="Goat">Goat</option>
+        <option value="Seafood">Seafood</option>
+        <option value="Pasta">Pasta</option>
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Side">Sides</option>
+        <option value="Dessert">Dessert</option>
+        <option value="Miscellaneous">Miscellaneous</option>
+      </select>
     </div>
-    <div id="card-container">
-        <!-- recipe cards go here -->
-    </div>
-</body>
+    <div id="card-container"></div>
+    <div id="likes"></div>
+  </body>
 </html>

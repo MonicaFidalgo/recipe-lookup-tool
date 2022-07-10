@@ -16,12 +16,11 @@ function handleDropdown(e) {
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((resp) => resp.json())
     .then((recipeData) => {
-      recipeData["meals"].forEach(renderOneRecipe);
+      renderRecipes(recipeData);
     });
 }
 
 async function getFavorites() {
-  console.log("inside ger");
   let likesData = [];
 
   await fetchFavorites().then((data) => {
@@ -54,52 +53,41 @@ function displayFavorites(data) {
   return likesContent;
 }
 
-function renderOneRecipe(recipe) {
-  const li = document.createElement("li");
-  li.className = "card";
+function renderRecipes(recipeData) {
+  const content = document.querySelector("#card-container");
 
-  const img = document.createElement("img");
-  img.className = "thumbnail";
-  img.src = recipe["strMealThumb"];
-  img.alt = `Image of prepared ${recipe["strMeal"]}`;
+  recipeData.meals.map((recipe) => {
+    return (content.innerHTML += `<li class="card">
+      <img class="thumbnail" src=${recipe.strMealThumb} alt="Image of prepared Breakfast Potatoes">
+     <h3>${recipe.strMeal}</h3>
+      <button class="like-btn" id=${recipe.idMeal}>Like</button>
+    </li>`);
+  });
 
-  const h3 = document.createElement("h3");
-  h3.innerText = recipe["strMeal"];
+  const btns = document.querySelectorAll(".like-btn");
 
-  if (h3.innerText.length > 48) {
-    h3.className = "overflowText";
-  }
-
-  const id = document.createElement("span");
-  id.innerText = recipe["idMeal"];
-  id.className = "hidden";
+  btns.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      handleLike(event);
+    });
+  });
 
   fetch("http://localhost:3000/meals")
     .then((resp) => resp.json())
-    .then((meals) => setLikeCounter(meals, likeButton));
-
-  const likeButton = document.createElement("button");
-  likeButton.className = "like-btn";
-  likeButton.innerText = "Like";
-  likeButton.setAttribute("id", recipe["idMeal"]);
-  likeButton.addEventListener("click", handleLike);
-
-  li.append(img, h3, likeButton);
-  document.querySelector("#card-container").appendChild(li);
+    .then((meals) =>
+      btns.forEach((btn) => {
+        setLike(meals, btn);
+      })
+    );
 }
 
-function setLikeCounter(meals, likeButton) {
-  console.log(likeButton);
+function setLike(meals, likeButton) {
+  const likedItem = meals.find((element) => element.id == likeButton.id);
 
-  const likedItem = meals.find((element) => element["id"] == likeButton.id);
-  console.log(meals, likedItem);
-
-  if (typeof likedItem === "undefined") {
-    likeButton.innerText = "0 likes";
-  } else if (likedItem["id"] >= 1) {
-    console.log(likedItem);
+  if (likedItem?.id >= 1) {
     likeButton?.classList.add("is-favorite");
   }
+  return;
 }
 
 function handleLike(e) {

@@ -18,8 +18,8 @@ The backend is hosted using json-server on a local machine. To install and run j
 
 ## How to Run
 
-- Instal json-server as a dev dependency
-  `npm install --save json-server`
+- We need to Instal json-server as a dev dependency
+  Run `npm install`
 - Run `npm run json-server`
 
 ### Note

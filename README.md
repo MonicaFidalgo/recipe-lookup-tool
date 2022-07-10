@@ -2,7 +2,7 @@
 
 ## **Project Description**
 
-Users can look up meals thumbnails by category using a dropdown menu, and are able to "like" meals. A like counter is displayed for each meal.
+Users can look up meals thumbnails by category using a dropdown menu, and are able to "like" meals. A favorite list should appear.
 
 ## **Framework Used**
 

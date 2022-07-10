@@ -44,7 +44,10 @@ function displayFavorites(data) {
   const likesData = data;
   const markup = likesData
     .map((meal) => {
-      return `<h1>${meal.id}</h1>`;
+      return `<div id=${meal.id} class="card">
+        <h1>${meal.name}</h1>
+        <img src=${meal.src} class="thumbnail" />
+      </div>`;
     })
     .join("");
 
@@ -60,17 +63,19 @@ function renderRecipes(recipeData) {
     return (content.innerHTML += `<li class="card">
       <img class="thumbnail" src=${recipe.strMealThumb} alt="Image of prepared Breakfast Potatoes">
      <h3>${recipe.strMeal}</h3>
-      <button class="like-btn" id=${recipe.idMeal}>Like</button>
+      <button class="like-btn" id=${recipe.idMeal} onclick="handleLike('${recipe.strMealThumb}', '${recipe.strMeal}', event)">Like</button>
     </li>`);
   });
 
+  //onclick="handleLike('${recipe}', event)"
+
   const btns = document.querySelectorAll(".like-btn");
 
-  btns.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      handleLike(event);
-    });
-  });
+  // btns.forEach((btn) => {
+  //   btn.addEventListener("click", (event) => {
+  //     handleLike(event);
+  //   });
+  // });
 
   fetch("http://localhost:3000/favorites")
     .then((resp) => resp.json())
@@ -90,7 +95,7 @@ function setLike(meals, likeButton) {
   return;
 }
 
-function handleLike(e) {
+function handleLike(image, name, e) {
   const id = e.target.id;
 
   const check = e.target.classList.contains("is-favorite") ? true : false;
@@ -98,6 +103,8 @@ function handleLike(e) {
   if (!check) {
     const newMeal = {
       id: id,
+      name: name,
+      src: image,
       favorite: "isFavorite",
     };
 

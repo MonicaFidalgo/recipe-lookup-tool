@@ -1,35 +1,21 @@
 {
   "favorites": [
     {
-      "id": "52967",
-      "favorite": "isFavorite"
-    },
-    {
-      "id": "52962",
-      "favorite": "isFavorite"
-    },
-    {
       "id": "52895",
-      "favorite": "isFavorite"
-    },
-    {
-      "id": "52842",
-      "favorite": "isFavorite"
-    },
-    {
-      "id": "52840",
+      "name": "English Breakfast",
+      "src": "https://www.themealdb.com/images/media/meals/utxryw1511721587.jpg",
       "favorite": "isFavorite"
     },
     {
       "id": "52965",
+      "name": "Breakfast Potatoes",
+      "src": "https://www.themealdb.com/images/media/meals/1550441882.jpg",
       "favorite": "isFavorite"
     },
     {
-      "id": "52896",
-      "favorite": "isFavorite"
-    },
-    {
-      "id": "52964",
+      "id": "52957",
+      "name": "Fruit and Cream Cheese Breakfast Pastries",
+      "src": "https://www.themealdb.com/images/media/meals/1543774956.jpg",
       "favorite": "isFavorite"
     }
   ]

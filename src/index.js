@@ -31,7 +31,7 @@ async function getFavorites() {
 }
 
 async function fetchFavorites() {
-  const url = "http://localhost:3000/meals/";
+  const url = "http://localhost:3000/favorites/";
 
   const response = await fetch(url);
   const data = await response.json();
@@ -72,7 +72,7 @@ function renderRecipes(recipeData) {
     });
   });
 
-  fetch("http://localhost:3000/meals")
+  fetch("http://localhost:3000/favorites")
     .then((resp) => resp.json())
     .then((meals) =>
       btns.forEach((btn) => {
@@ -101,7 +101,7 @@ function handleLike(e) {
       favorite: "isFavorite",
     };
 
-    fetch("http://localhost:3000/meals", {
+    fetch("http://localhost:3000/favorites", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ function handleLike(e) {
       .then(() => e.target.classList.add("is-favorite"))
       .then(() => getFavorites());
   } else {
-    fetch(`http://localhost:3000/meals/${id}`, {
+    fetch(`http://localhost:3000/favorites/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

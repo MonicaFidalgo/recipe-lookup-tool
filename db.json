@@ -1,11 +1,7 @@
 {
-  "meals": [
+  "favorites": [
     {
       "id": "52967",
-      "favorite": "isFavorite"
-    },
-    {
-      "id": "52964",
       "favorite": "isFavorite"
     },
     {
@@ -26,6 +22,14 @@
     },
     {
       "id": "52965",
+      "favorite": "isFavorite"
+    },
+    {
+      "id": "52896",
+      "favorite": "isFavorite"
+    },
+    {
+      "id": "52964",
       "favorite": "isFavorite"
     }
   ]

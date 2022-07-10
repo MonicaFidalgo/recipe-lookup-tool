@@ -5,11 +5,10 @@ function initialize(e) {
   document
     .querySelector("#categories")
     .addEventListener("change", handleDropdown);
-  addFavorites();
+  getFavorites();
 }
 
 function handleDropdown(e) {
-  console.log(e);
   document.querySelector("#card-container").innerHTML = "";
 
   const category = e !== undefined ? e.target.value : "Breakfast";
@@ -21,22 +20,14 @@ function handleDropdown(e) {
     });
 }
 
-async function addFavorites() {
-  const likes = document.querySelector("#likes");
+async function getFavorites() {
+  console.log("inside ger");
   let likesData = [];
 
   await fetchFavorites().then((data) => {
     likesData.push(...data);
-    const markup = likesData
-      .map((meal) => {
-        return `<h1>${meal.likes}</h1>`;
-      })
-      .join("");
-    console.log(markup);
 
-    let likesContent = (likes.innerHTML = markup);
-
-    return likesContent;
+    displayFavorites(likesData);
   });
 }
 
@@ -47,6 +38,20 @@ async function fetchFavorites() {
   const data = await response.json();
 
   return data;
+}
+
+function displayFavorites(data) {
+  const likes = document.querySelector("#likes");
+  const likesData = data;
+  const markup = likesData
+    .map((meal) => {
+      return `<h1>${meal.id}</h1>`;
+    })
+    .join("");
+
+  let likesContent = (likes.innerHTML = markup);
+
+  return likesContent;
 }
 
 function renderOneRecipe(recipe) {
@@ -69,41 +74,43 @@ function renderOneRecipe(recipe) {
   id.innerText = recipe["idMeal"];
   id.className = "hidden";
 
-  const likeCounter = document.createElement("span");
-
   fetch("http://localhost:3000/meals")
     .then((resp) => resp.json())
-    .then((meals) => setLikeCounter(meals, id, likeCounter));
+    .then((meals) => setLikeCounter(meals, likeButton));
 
   const likeButton = document.createElement("button");
   likeButton.className = "like-btn";
   likeButton.innerText = "Like";
+  likeButton.setAttribute("id", recipe["idMeal"]);
   likeButton.addEventListener("click", handleLike);
 
-  li.append(img, h3, id, likeCounter, likeButton);
+  li.append(img, h3, likeButton);
   document.querySelector("#card-container").appendChild(li);
 }
 
-function setLikeCounter(meals, id, likeCounter) {
-  const likedMeal = meals.find((element) => element["id"] === id.innerText);
+function setLikeCounter(meals, likeButton) {
+  console.log(likeButton);
 
-  if (typeof likedMeal === "undefined") {
-    likeCounter.innerText = "0 likes";
-  } else if (likedMeal["likes"] === 1) {
-    likeCounter.innerText = "1 like";
-  } else {
-    likeCounter.innerText = `${likedMeal["likes"]} likes`;
+  const likedItem = meals.find((element) => element["id"] == likeButton.id);
+  console.log(meals, likedItem);
+
+  if (typeof likedItem === "undefined") {
+    likeButton.innerText = "0 likes";
+  } else if (likedItem["id"] >= 1) {
+    console.log(likedItem);
+    likeButton?.classList.add("is-favorite");
   }
 }
 
 function handleLike(e) {
-  let currentLikes = parseInt(e.target.previousElementSibling.innerText);
-  const id = e.target.previousElementSibling.previousElementSibling.innerText;
+  const id = e.target.id;
 
-  if (currentLikes === 0) {
+  const check = e.target.classList.contains("is-favorite") ? true : false;
+
+  if (!check) {
     const newMeal = {
       id: id,
-      likes: 1,
+      favorite: "isFavorite",
     };
 
     fetch("http://localhost:3000/meals", {
@@ -113,31 +120,16 @@ function handleLike(e) {
       },
       body: JSON.stringify(newMeal),
     })
-      .then((resp) => resp.json())
-      .then(
-        () =>
-          (e.target.previousElementSibling.innerText = `${
-            currentLikes + 1
-          } like`)
-      );
+      .then(() => e.target.classList.add("is-favorite"))
+      .then(() => getFavorites());
   } else {
     fetch(`http://localhost:3000/meals/${id}`, {
-      method: "PATCH",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        likes: currentLikes + 1,
-      }),
     })
-      .then((resp) => resp.json())
-      .then(
-        () =>
-          (e.target.previousElementSibling.innerText = `${
-            currentLikes + 1
-          } likes`)
-      );
+      .then(() => e.target.classList.remove("is-favorite"))
+      .then(() => getFavorites());
   }
-
-  addFavorites();
 }
